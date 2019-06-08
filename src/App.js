@@ -1,14 +1,11 @@
 import React from 'react';
 import MainLayout from './layout/MainLayout';
 import Sidebar from './layout/Sidebar';
-
-function Right(props) {
-  return 'Right';
-}
+import ToDoList from './components/ToDoList';
 
 function App() {
   return (
-    <MainLayout left={<Sidebar />} right={<Right />} />
+    <MainLayout left={<Sidebar />} right={<ToDoList />} />
   );
 }
 
