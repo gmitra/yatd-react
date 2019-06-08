@@ -1,11 +1,11 @@
 import React from 'react';
 import MainLayout from './layout/MainLayout';
 import Sidebar from './layout/Sidebar';
-import ToDoList from './components/ToDoList';
+import ToDoListForm from './layout/ToDoListForm';
 
 function App() {
   return (
-    <MainLayout left={<Sidebar />} right={<ToDoList />} />
+    <MainLayout left={<Sidebar />} right={<ToDoListForm />} />
   );
 }
 

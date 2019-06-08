@@ -21,7 +21,7 @@ function MainLayout({ left, right, ...props }) {
         Made with React by GM
       </footer>
     </div>
-  )
+  );
 }
 
 export default MainLayout;
