@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { ToDoContext, toggleToDoStatus } from './ToDoContext';
+import { ToDoService } from './ToDoService';
 import ToDoItem from './ToDoItem';
 
 function ToDoList({ ...props }) {
-  const context = useContext(ToDoContext);
+  const context = useContext(ToDoService.context);
   const [items, setItems] = useState(context);
 
   const onToggle = (id) => {
-    const updated = toggleToDoStatus(items, id);
+    const updated = ToDoService.toggleStatus(items, id);
     setItems(updated);
   };
 
