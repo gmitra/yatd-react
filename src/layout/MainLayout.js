@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Col, Row, Navbar } from 'react-bootstrap';
 
-function Layout({ left, right, ...props }) {
+function MainLayout({ left, right, ...props }) {
   return (
     <div id="yatd-react">
       <Navbar bg="light">
@@ -24,4 +24,4 @@ function Layout({ left, right, ...props }) {
   )
 }
 
-export default Layout;
+export default MainLayout;

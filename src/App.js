@@ -1,9 +1,6 @@
 import React from 'react';
-import Layout from './components/Layout';
-
-function Left(props) {
-  return 'Left';
-}
+import MainLayout from './layout/MainLayout';
+import Sidebar from './layout/Sidebar';
 
 function Right(props) {
   return 'Right';
@@ -11,7 +8,7 @@ function Right(props) {
 
 function App() {
   return (
-    <Layout left={<Left />} right={<Right />} />
+    <MainLayout left={<Sidebar />} right={<Right />} />
   );
 }
 
