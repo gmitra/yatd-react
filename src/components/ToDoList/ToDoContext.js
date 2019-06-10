@@ -19,9 +19,6 @@ function ToDoProvider(props) {
       id: 2,
       status: 'INCOMPLETE'
     }],
-    setListName: (name) => {
-      setState({ listName: name });
-    },
     toggleStatus: (state, id) => {
       const updated = state.items.slice();
       const item = updated.find(todo => id === todo.id);
@@ -31,7 +28,7 @@ function ToDoProvider(props) {
       else {
         item.status = 'COMPLETE';
       }
-      setState({ ...toDoInfo, items: updated });
+      setState({ ...state, items: updated });
     }
   };
 
