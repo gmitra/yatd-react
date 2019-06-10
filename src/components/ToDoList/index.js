@@ -1,24 +1,25 @@
 import React, { useContext, useState } from 'react';
-import { ToDoService } from './ToDoService';
+import { ToDoContext } from './ToDoContext';
 import ToDoItem from './ToDoItem';
 
 function ToDoList({ ...props }) {
-  const context = useContext(ToDoService.context);
-  const [items, setItems] = useState(context);
-
+  const context = useContext(ToDoContext);
+  //const [items, setItems] = useState(context);
   const onToggle = (id) => {
-    const updated = ToDoService.toggleStatus(items, id);
-    setItems(updated);
+    context.state.toggleStatus(context.state, id);
   };
 
-  const todos = items.map((item) => {
+  const todos = context.state.items.map((item) => {
     return <ToDoItem key={item.id} data={item} onToggle={onToggle} />;
   });
 
   return (
-    <ul>
-      {todos}
-    </ul>
+    <React.Fragment>
+      <h3>{context.state.listName}</h3>
+      <ul>
+        {todos}
+      </ul>
+    </React.Fragment>
   );
 }
 
