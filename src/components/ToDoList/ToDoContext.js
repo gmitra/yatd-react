@@ -6,6 +6,20 @@ function ToDoProvider(props) {
   const toDoInfo = {
     listName: 'My To Do',
     items: []
+    // items: [{
+    //   description: 'take out garbage',
+    //   id: 0,
+    //   status: 'COMPLETE'
+    // }, {
+    //   description: 'wash car',
+    //   id: 1,
+    //   status: 'INCOMPLETE'
+    // },
+    // {
+    //   description: 'buy milk',
+    //   id: 2,
+    //   status: 'INCOMPLETE'
+    // }]
   };
 
   const [state, setState] = useState(toDoInfo);
@@ -36,12 +50,12 @@ function ToDoProvider(props) {
 
     const fetchData = async () => {
       await mockFetch().then((resp) => {
-        setState({ ...state, items: resp.items });
+        setState(prevState => { return { ...prevState, items: resp.items }; });
       });
     };
-
+    console.log('fetch data');
     fetchData();
-  });
+  }, []);
 
   const toggleStatus = (id) => {
     const updated = state.items.slice();
