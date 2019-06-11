@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Col, Row, Navbar } from 'react-bootstrap';
+import { ToDoProvider } from '../components/ToDoList/ToDoContext';
 
 function MainLayout({ left, right, ...props }) {
   return (
@@ -7,16 +8,18 @@ function MainLayout({ left, right, ...props }) {
       <Navbar bg="light">
         <Navbar.Brand href="/">Yet Another To-Do App [React]</Navbar.Brand>
       </Navbar>
-      <Container fluid={false} className="content mt-4 mb-4">
-        <Row>
-          <Col xs={12} md={6} lg={3}>
-            {left}
-          </Col>
-          <Col xs={12} md={6} lg={9}>
-            {right}
-          </Col>
-        </Row>
-      </Container>
+      <ToDoProvider>
+        <Container fluid={false} className="content mt-4 mb-4">
+          <Row>
+            <Col xs={12} md={6} lg={3}>
+              {left}
+            </Col>
+            <Col xs={12} md={6} lg={9}>
+              {right}
+            </Col>
+          </Row>
+        </Container>
+      </ToDoProvider>
       <footer className="footer text-muted">
         Made with React by GM
       </footer>
