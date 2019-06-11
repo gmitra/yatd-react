@@ -2,23 +2,23 @@ import React, { useState, useContext } from 'react';
 import { ToDoContext } from '../ToDoList/ToDoContext';
 
 function AddToDo({ ...props }) {
-  const context = useContext(ToDoContext);
+  const [toDoState, toDoActions] = useContext(ToDoContext);
   const [state, setState] = useState({
     description: 'test'
   });
 
   const addToDoItem = () => {
-    const updated = context.state.items.slice();
+    const updated = toDoState.items.slice();
     updated.push({
       id: (new Date()).getTime(),
       description: state.description,
       status: 'INCOMPLETE'
     });
-    context.setState({ ...context.state, items: updated });
+    toDoActions.setState({ ...toDoState, items: updated });
   };
 
   const changeListName = () => {
-    context.setState({ ...context.state, listName: state.description });
+    toDoActions.setState({ ...toDoState, listName: state.description });
   }
 
   const onChange = (e) => {
