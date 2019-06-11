@@ -3,10 +3,17 @@ import { ToDoContext } from './ToDoContext';
 import ToDoItem from './ToDoItem';
 
 function ToDoList({ ...props }) {
-  const [state, actions] = useContext(ToDoContext);
+  const { state, dispatch } = useContext(ToDoContext);
+
+  const onToggle = (id) => {
+    dispatch({
+      type: 'TOGGLE_STATUS',
+      payload: { id }
+    });
+  }
 
   const todos = state.items.map((item) => {
-    return <ToDoItem key={item.id} data={item} onToggle={actions.toggleStatus} />;
+    return <ToDoItem key={item.id} data={item} onToggle={onToggle} />;
   });
 
   return (

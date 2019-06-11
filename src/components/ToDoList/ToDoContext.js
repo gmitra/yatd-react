@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 const ToDoContext = React.createContext();
 
@@ -8,7 +8,31 @@ function ToDoProvider(props) {
     items: []
   };
 
-  const [state, setState] = useState(toDoInfo);
+  const reducer = (state, action) => {
+    let items;
+    switch (action.type) {
+      case 'SET_ITEMS':
+        return ({ ...state, items: action.payload.items });
+      case 'SET_NAME':
+        return ({ ...state, listName: action.payload.name });
+      case 'TOGGLE_STATUS':
+        items = state.items.map((item) => {
+          if (item.id === action.payload.id) {
+            item.status = (item.status === 'COMPLETE') ? 'INCOMPLETE' : 'COMPLETE';
+          }
+          return item;
+        });
+        return ({ ...state, items: items });
+      case 'ADD':
+        items = state.items.slice();
+        items.push(action.payload);
+        return ({ ...state, items: items });
+      default:
+        throw new Error('Invalid or missing action type');
+    }
+  };
+
+  const [state, dispatch] = useReducer(reducer, toDoInfo);
 
   useEffect(() => {
     const mockFetch = () => {
@@ -36,29 +60,20 @@ function ToDoProvider(props) {
 
     const fetchData = async () => {
       await mockFetch().then((resp) => {
-        setState(prevState => {
-          return { ...prevState, items: resp.items };
+        dispatch({
+          type: 'SET_ITEMS',
+          payload: {
+            items: resp.items
+          }
         });
       });
     };
-    console.log('fetch data');
+
     fetchData();
   }, []);
 
-  const toggleStatus = (id) => {
-    const updated = state.items.slice();
-    const item = updated.find(todo => id === todo.id);
-    if (item.status === 'COMPLETE') {
-      item.status = 'INCOMPLETE';
-    }
-    else {
-      item.status = 'COMPLETE';
-    }
-    setState({ ...state, items: updated });
-  };
-
   return (
-    <ToDoContext.Provider value={[state, { setState, toggleStatus }]}>
+    <ToDoContext.Provider value={{ state, dispatch }}>
       {props.children}
     </ToDoContext.Provider>
   );
